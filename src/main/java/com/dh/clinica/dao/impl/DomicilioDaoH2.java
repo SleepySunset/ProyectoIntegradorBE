@@ -7,17 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class DomicilioDaoH2 implements IDao<Domicilio> {
     public static final Logger logger = LoggerFactory.getLogger(DomicilioDaoH2.class);
-    public static final String INSERT = "INSERT INTO DOMICILIOS VALUES (DEFAULT, ?,?,?,?);";
-    
-    public static final String SELECT_ID = "SELECT * FROM DOMICILIOS WHERE ID = ?";
+    public static final String INSERT = "INSERT INTO DOMICILIOS VALUES (DEFAULT,?,?,?,?);";
+    public static final String SELECT_ID = "SELECT * FROM DOMICILIOS WHERE ID=?";
+    public static final String SELECT_ALL = "SELECT * FROM DOMICILIOS";
+    public static final String UPDATE = "UPDATE DOMICILIOS SET CALLE=?, NUMERO=?, LOCALIDAD=?, PROVINCIA=? WHERE ID=?";
+    public static final String DELETE = "DELETE FROM DOMICILIOS WHERE ID=?";
     @Override
     public Domicilio guardar(Domicilio domicilio) {
         Connection connection = null;
@@ -107,16 +107,118 @@ public class DomicilioDaoH2 implements IDao<Domicilio> {
 
     @Override
     public List<Domicilio> buscarTodos() {
+        Connection connection = null;
+        List<Domicilio> domicilios = new ArrayList<>();
+        Domicilio domicilioDesdeDB = null;
+
+        try{
+            connection = H2Connection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_ALL);
+
+            while (resultSet.next()){
+                Integer idDB = resultSet.getInt(1);
+                String calle = resultSet.getString(2);
+                int numero = resultSet.getInt(3);
+                String localidad = resultSet.getString(4);
+                String provincia = resultSet.getString(5);
+
+                domicilioDesdeDB = new Domicilio(idDB,calle,numero,localidad,provincia);
+                logger.info("domicilio " + domicilioDesdeDB);
+                domicilios.add(domicilioDesdeDB);
+            }
+
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            try{
+                connection.close();
+            }catch (SQLException e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
     @Override
     public void modificar(Domicilio domicilio) {
+        Connection connection = null;
+        try{
+            connection = H2Connection.getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
+            preparedStatement.setString(1, domicilio.getCalle());
+            preparedStatement.setInt(2, domicilio.getNumero());
+            preparedStatement.setString(3, domicilio.getLocalidad());
+            preparedStatement.setString(4,domicilio.getProvincia());
+            preparedStatement.setInt(5, domicilio.getId());
+            preparedStatement.executeUpdate();
+            connection.commit();
 
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            }catch (SQLException ex){
+                logger.error(ex.getMessage());
+                ex.printStackTrace();
+            }finally {
+                try {
+                    connection.setAutoCommit(true);
+                }catch (SQLException ex){
+                    logger.error(ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+        }finally {
+            try{
+                connection.close();
+            }catch (SQLException e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void eliminar(Integer id) {
+        Connection connection = null;
+        try{
+            connection = H2Connection.getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            connection.commit();
 
+            logger.info("domicilio con el id " + id + "eliminado");
+
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            }catch (SQLException ex){
+                logger.error(ex.getMessage());
+                ex.printStackTrace();
+            }finally {
+                try {
+                    connection.setAutoCommit(true);
+                }catch (SQLException ex){
+                    logger.error(ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+        }finally {
+            try {
+                connection.close();
+            }catch (SQLException e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }
