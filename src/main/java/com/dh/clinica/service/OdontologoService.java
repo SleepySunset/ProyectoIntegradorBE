@@ -18,13 +18,19 @@ public class OdontologoService {
     public Odontologo guardarOdontologo(Odontologo odontologo){
         return odontologoIDao.guardar(odontologo);
     }
-    public Odontologo buscarPorId(Integer id){return odontologoIDao.buscarPorId(id); }
+
+    public Odontologo buscarPorId(Integer id){
+        return odontologoIDao.buscarPorId(id);
+    }
+
     public List<Odontologo> busarTodos(){
         return odontologoIDao.buscarTodos();
     }
+
     public void modificarOdontologo(Odontologo odontologo){
         odontologoIDao.modificar(odontologo);
     }
+
     public void eliminarOdontologo(Integer id){
         odontologoIDao.eliminar(id);
     }
