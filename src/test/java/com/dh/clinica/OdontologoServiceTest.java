@@ -18,8 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class OdontologoServiceTest {
 
@@ -49,7 +48,13 @@ class OdontologoServiceTest {
         assertFalse(odontologos.isEmpty());
     }
 
-
+    @Test
+    @DisplayName("Testear que nos busque un odontologo por id")
+    void caso3(){
+        Integer id = 1;
+        odontologoService.buscarPorId(Integer.valueOf(id.toString()));
+        assertEquals(id, odontologoService.buscarPorId(id).getId());
+    }
 
 }
 

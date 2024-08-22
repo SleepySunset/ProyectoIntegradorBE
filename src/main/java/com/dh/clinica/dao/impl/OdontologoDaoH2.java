@@ -19,7 +19,7 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
 
     public static final String INSERT = "INSERT INTO ODONTOLOGOS VALUES(DEFAULT, ?,?,?)";
     public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGOS";
-
+    public static final String SELECTODONTOLOGO_ID = "SELECT * FROM ODONTOLOGOS WHERE ID = ?";
 
 
     @Override
@@ -82,7 +82,39 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
 
     @Override
     public Odontologo buscarPorId(Integer id) {
-        return null;
+        Connection connection = null;
+        Odontologo odontologoEncontrado = null;
+
+        try {
+            connection = H2Connection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECTODONTOLOGO_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                Integer idDb = resultSet.getInt(1);
+                Integer nroMatricula = resultSet.getInt(2);
+                String nombre = resultSet.getString(3);
+                String apellido = resultSet.getString(4);
+                odontologoEncontrado = new Odontologo(idDb, nroMatricula, nombre, apellido);
+            }
+            if(odontologoEncontrado != null){
+                logger.info("Odontologo encontrado" + odontologoEncontrado);
+            } else {
+                logger.info("Paciente no encontrado");
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex){
+                logger.error(ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return odontologoEncontrado;
     }
 
     @Override
