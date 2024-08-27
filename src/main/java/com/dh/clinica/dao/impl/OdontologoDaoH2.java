@@ -20,7 +20,8 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
     public static final String INSERT = "INSERT INTO ODONTOLOGOS VALUES(DEFAULT, ?,?,?)";
     public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGOS";
     public static final String SELECTODONTOLOGO_ID = "SELECT * FROM ODONTOLOGOS WHERE ID = ?";
-
+    public static final String UPDATE = "";
+    public static final String DELETE = "";
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
