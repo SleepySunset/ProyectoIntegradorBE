@@ -51,14 +51,13 @@ public class DomicilioDaoH2 implements IDao<Domicilio> {
                 logger.error(ex.getMessage());
                 ex.printStackTrace();
             } finally {
-                try{
+                try {
                     connection.setAutoCommit(true);
                 } catch (SQLException ex) {
                     logger.error(ex.getMessage());
                     ex.printStackTrace();
                 }
             }
-
         }finally {
             try{
                 connection.close();
