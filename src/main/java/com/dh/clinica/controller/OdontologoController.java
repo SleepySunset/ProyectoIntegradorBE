@@ -43,7 +43,7 @@ public class OdontologoController {
     public ResponseEntity<?> modificarOdontologo(@RequestBody Odontologo odontologo) {
         Odontologo odontologoEncontrado = odontologoService.buscarPorId(odontologo.getId());
 
-        if (odontologo != null) {
+        if (odontologoEncontrado != null) {
             odontologoService.modificarOdontologo(odontologo);
             return ResponseEntity.ok("El odontologo fue modificado");
         } else {

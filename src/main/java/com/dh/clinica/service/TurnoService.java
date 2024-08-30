@@ -6,6 +6,8 @@ import com.dh.clinica.model.Paciente;
 import com.dh.clinica.model.Turno;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 
 public class TurnoService {
@@ -33,6 +35,10 @@ public class TurnoService {
 
     public Turno buscarPorId(Integer id){
         return turnoIDao.buscarPorId(id);
+    }
+
+    public List<Turno> buscarTodos() {
+        return turnoIDao.buscarTodos();
     }
 
     public void modificarTurno(Turno turno){
