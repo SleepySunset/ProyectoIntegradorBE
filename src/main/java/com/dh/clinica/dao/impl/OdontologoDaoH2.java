@@ -4,7 +4,6 @@ package com.dh.clinica.dao.impl;
 import com.dh.clinica.dao.IDao;
 import com.dh.clinica.db.H2Connection;
 import com.dh.clinica.model.Odontologo;
-import com.dh.clinica.model.Turno;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -22,7 +21,7 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
     public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGOS";
     public static final String SELECTODONTOLOGO_ID = "SELECT * FROM ODONTOLOGOS WHERE ID = ?";
     public static final String UPDATE = "UPDATE ODONTOLOGOS SET NROMATRICULA=?, NOMBRE=?, APELLIDO=?, WHERE ID =?";
-    public static final String DELETE = "DELETE FROM ODOONTOLOGOS WHERE ID =?";
+    public static final String DELETE = "DELETE FROM ODONTOLOGOS WHERE ID =?";
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
@@ -32,8 +31,6 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
         try {
             connection = H2Connection.getConnection();
             connection.setAutoCommit(false);
-
-
 
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, odontologo.getNroMatricula());
@@ -218,7 +215,7 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
 
             }
 
-            logger.info("El odontologo" + id + "fue eliminado");
+            logger.info("El odontologo " + id + " fue eliminado");
 
         } catch (Exception e) {
             logger.error(e.getMessage());

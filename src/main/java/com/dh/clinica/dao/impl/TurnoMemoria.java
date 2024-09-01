@@ -11,19 +11,15 @@ import java.util.List;
 
 
 @Repository
-
 public class TurnoMemoria implements IDao<Turno> {
-
-    private List<Turno> turnos = new ArrayList<>();
     public static final Logger logger = LoggerFactory.getLogger(OdontologoDaoH2.class);
-
-
+    private List<Turno> turnos = new ArrayList<>();
 
     @Override
     public Turno guardar(Turno turno) {
         turno.setId(turnos.size() + 1);
         turnos.add(turno);
-        logger.info("turno agregado "+ turno);
+        logger.info("turno agregado " + turno);
         return turno;
     }
 
@@ -34,6 +30,8 @@ public class TurnoMemoria implements IDao<Turno> {
             if (t.getId().equals(id)){
                 turnoARetornar = t;
                 logger.info("turno encontrado" + turnoARetornar);
+            }else{
+                logger.info("turno no encontrado");
             }
         }
         return turnoARetornar;
@@ -61,8 +59,8 @@ public class TurnoMemoria implements IDao<Turno> {
     public void eliminar(Integer id) {
         for(Turno t: turnos){
             if(t.getId().equals(id)){
-                logger.info("turno eliminado "+ t);
                 turnos.remove(t);
+                logger.info("turno eliminado "+ t);
                 break;
             }
         }

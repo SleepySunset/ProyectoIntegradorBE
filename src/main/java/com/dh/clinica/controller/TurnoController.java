@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/turnos")
+@RequestMapping("/turno")
 public class TurnoController {
     private TurnoService turnoService;
 
@@ -57,6 +57,7 @@ public class TurnoController {
     public ResponseEntity<?> eliminarTurno(@PathVariable Integer id){
         Turno turno = turnoService.buscarPorId(id);
         if(turno != null){
+            turnoService.eliminarTurno(id);
             return ResponseEntity.ok("El paciente fue eliminado");
         }else{
             return ResponseEntity.notFound().build();

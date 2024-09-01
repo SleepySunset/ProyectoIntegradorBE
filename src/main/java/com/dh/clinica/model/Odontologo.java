@@ -6,6 +6,8 @@ public class Odontologo {
     private String nombre;
     private String apellido;
 
+    public Odontologo() {
+    }
     public Odontologo(Integer nroMatricula, String nombre, String apellido) {
         this.nroMatricula = nroMatricula;
         this.nombre = nombre;

@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class DomicilioDaoH2 implements IDao<Domicilio> {
     public static final Logger logger = LoggerFactory.getLogger(DomicilioDaoH2.class);
-    public static final String INSERT = "INSERT INTO DOMICILIOS VALUES (DEFAULT,?,?,?,?);";
+    public static final String INSERT = "INSERT INTO DOMICILIOS VALUES (DEFAULT,?,?,?,?)";
     public static final String SELECT_ID = "SELECT * FROM DOMICILIOS WHERE ID=?";
     public static final String SELECT_ALL = "SELECT * FROM DOMICILIOS";
     public static final String UPDATE = "UPDATE DOMICILIOS SET CALLE=?, NUMERO=?, LOCALIDAD=?, PROVINCIA=? WHERE ID=?";
@@ -31,7 +31,7 @@ public class DomicilioDaoH2 implements IDao<Domicilio> {
             preparedStatement.setInt(2, domicilio.getNumero());
             preparedStatement.setString(3, domicilio.getLocalidad());
             preparedStatement.setString(4, domicilio.getProvincia());
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
             connection.commit();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();

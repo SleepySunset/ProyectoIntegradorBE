@@ -8,23 +8,26 @@ public class Paciente {
     private String nombre;
     private String dni;
     private LocalDate fechaIngreso;
-    private Domicilio domicilo;
+    private Domicilio domicilio;
 
-    public Paciente(String apellido, String nombre, String dni, LocalDate fechaIngreso, Domicilio domicilo) {
+    public Paciente() {
+    }
+
+    public Paciente(String apellido, String nombre, String dni, LocalDate fechaIngreso, Domicilio domicilio) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
         this.fechaIngreso = fechaIngreso;
-        this.domicilo = domicilo;
+        this.domicilio = domicilio;
     }
 
-    public Paciente(Integer id, String apellido, String nombre, String dni, LocalDate fechaIngreso, Domicilio domicilo) {
+    public Paciente(Integer id, String apellido, String nombre, String dni, LocalDate fechaIngreso, Domicilio domicilio) {
         this.id = id;
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
         this.fechaIngreso = fechaIngreso;
-        this.domicilo = domicilo;
+        this.domicilio = domicilio;
     }
 
     public Integer getId() {
@@ -67,12 +70,12 @@ public class Paciente {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public Domicilio getDomicilo() {
-        return domicilo;
+    public Domicilio getDomicilio() {
+        return domicilio;
     }
 
-    public void setDomicilo(Domicilio domicilo) {
-        this.domicilo = domicilo;
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
     }
 
     @Override
@@ -83,7 +86,7 @@ public class Paciente {
                 ", nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
                 ", fechaIngreso=" + fechaIngreso +
-                ", domicilo=" + domicilo +
+                ", domicilio=" + domicilio +
                 '}';
     }
 }

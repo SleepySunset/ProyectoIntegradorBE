@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class TurnoService {
     private IDao<Turno> turnoIDao;
     private PacienteService pacienteService;

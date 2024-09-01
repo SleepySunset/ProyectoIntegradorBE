@@ -27,7 +27,7 @@ public class PacienteDaoH2 implements IDao<Paciente> {
     public Paciente guardar(Paciente paciente) {
         Connection connection = null;
         Paciente pacienteARetornar = null;
-        Domicilio domicilioAux = domicilioDaoH2.guardar(paciente.getDomicilo());
+        Domicilio domicilioAux = domicilioDaoH2.guardar(paciente.getDomicilio());
 
         try {
             connection = H2Connection.getConnection();
@@ -158,7 +158,7 @@ public class PacienteDaoH2 implements IDao<Paciente> {
     @Override
     public void modificar(Paciente paciente) {
         Connection connection = null;
-        domicilioDaoH2.modificar(paciente.getDomicilo());
+        domicilioDaoH2.modificar(paciente.getDomicilio());
         try {
             connection = H2Connection.getConnection();
             connection.setAutoCommit(false);
@@ -167,7 +167,7 @@ public class PacienteDaoH2 implements IDao<Paciente> {
             preparedStatement.setString(2, paciente.getNombre());
             preparedStatement.setString(3, paciente.getDni());
             preparedStatement.setDate(4, Date.valueOf(paciente.getFechaIngreso()));
-            preparedStatement.setInt(5, paciente.getDomicilo().getId());
+            preparedStatement.setInt(5, paciente.getDomicilio().getId());
             preparedStatement.setInt(6, paciente.getId());
             preparedStatement.executeUpdate();
             connection.commit();
@@ -209,7 +209,7 @@ public class PacienteDaoH2 implements IDao<Paciente> {
             connection = H2Connection.getConnection();
             connection.setAutoCommit(false);
             if (paciente!=null){
-                domicilioDaoH2.eliminar(paciente.getDomicilo().getId());
+                domicilioDaoH2.eliminar(paciente.getDomicilio().getId());
                 PreparedStatement preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
