@@ -17,11 +17,11 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
 
     public static final Logger logger = LoggerFactory.getLogger(OdontologoDaoH2.class);
 
-    public static final String INSERT = "INSERT INTO ODONTOLOGOS VALUES(DEFAULT, ?,?,?)";
+    public static final String INSERT = "INSERT INTO ODONTOLOGOS VALUES(DEFAULT,?,?,?)";
     public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGOS";
-    public static final String SELECTODONTOLOGO_ID = "SELECT * FROM ODONTOLOGOS WHERE ID = ?";
-    public static final String UPDATE = "UPDATE ODONTOLOGOS SET NROMATRICULA=?, NOMBRE=?, APELLIDO=?, WHERE ID =?";
-    public static final String DELETE = "DELETE FROM ODONTOLOGOS WHERE ID =?";
+    public static final String SELECTODONTOLOGO_ID = "SELECT * FROM ODONTOLOGOS WHERE ID=?";
+    public static final String UPDATE = "UPDATE ODONTOLOGOS SET NROMATRICULA=?, NOMBRE=?, APELLIDO=? WHERE ID=?";
+    public static final String DELETE = "DELETE FROM ODONTOLOGOS WHERE ID=?";
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
@@ -98,9 +98,9 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
                 odontologoEncontrado = new Odontologo(idDb, nroMatricula, nombre, apellido);
             }
             if(odontologoEncontrado != null){
-                logger.info("Odontologo encontrado" + odontologoEncontrado);
+                logger.info("Odontologo encontrado " + odontologoEncontrado);
             } else {
-                logger.info("Paciente no encontrado");
+                logger.info("Odontologo no encontrado");
             }
         } catch (Exception e){
             logger.error(e.getMessage());
@@ -161,15 +161,15 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
             connection.setAutoCommit(false);
 
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
-            preparedStatement.setInt(1, odontologo.getId());
-            preparedStatement.setInt(2, odontologo.getNroMatricula());
-            preparedStatement.setString(3, odontologo.getNombre());
-            preparedStatement.setString(4, odontologo.getApellido());
+            preparedStatement.setInt(1, odontologo.getNroMatricula());
+            preparedStatement.setString(2, odontologo.getNombre());
+            preparedStatement.setString(3, odontologo.getApellido());
+            preparedStatement.setInt(4, odontologo.getId());
 
             preparedStatement.executeUpdate();
             connection.commit();
 
-            logger.info("El odontologo" + odontologo + "fue modificado");
+            logger.info("El odontologo " + odontologo + " fue modificado");
 
         } catch (Exception e) {
             logger.error(e.getMessage());

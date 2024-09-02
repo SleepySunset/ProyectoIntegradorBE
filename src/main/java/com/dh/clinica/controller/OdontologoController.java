@@ -43,9 +43,10 @@ public class OdontologoController {
         Odontologo odontologoEncontrado = odontologoService.buscarPorId(odontologo.getId());
         if (odontologoEncontrado != null) {
             odontologoService.modificarOdontologo(odontologo);
-            return ResponseEntity.ok("El odontologo fue modificado");
+            String jsonResponse = "{\"mensaje\": \"El odontologo fue modificado\"}";
+            return ResponseEntity.ok(jsonResponse);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("el odontologo no fue encontrado y no se modificó");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El odontologo no fue encontrado y no se modificó");
         }
     }
 
