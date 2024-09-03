@@ -1,12 +1,13 @@
 package com.dh.clinica.controller;
 
-import com.dh.clinica.model.Turno;
-import com.dh.clinica.service.TurnoService;
+import com.dh.clinica.entity.Turno;
+import com.dh.clinica.service.impl.TurnoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/turno")
@@ -29,9 +30,9 @@ public class TurnoController {
 
     @GetMapping("/buscar/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
-        Turno turno = turnoService.buscarPorId(id);
-        if(turno!= null){
-            return ResponseEntity.ok(turno);
+        Optional<Turno> turno = turnoService.buscarPorId(id);
+        if(turno.isPresent()){
+            return ResponseEntity.ok(turno.get());
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el turno buscado");
         }
@@ -44,8 +45,8 @@ public class TurnoController {
 
     @PutMapping("/modificar")
     public ResponseEntity<?> modificarTurno(@RequestBody Turno turno){
-        Turno turnoEncontrado = turnoService.buscarPorId(turno.getId());
-        if(turnoEncontrado != null){
+        Optional<Turno> turnoEncontrado = turnoService.buscarPorId(turno.getId());
+        if(turnoEncontrado.isPresent()){
             turnoService.modificarTurno(turno);
             return ResponseEntity.ok("El turno fue modificado");
         }else{
@@ -55,8 +56,8 @@ public class TurnoController {
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarTurno(@PathVariable Integer id){
-        Turno turno = turnoService.buscarPorId(id);
-        if(turno != null){
+        Optional<Turno> turno = turnoService.buscarPorId(id);
+        if(turno.isPresent()){
             turnoService.eliminarTurno(id);
             return ResponseEntity.ok("El paciente fue eliminado");
         }else{

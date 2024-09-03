@@ -1,10 +1,9 @@
 package com.dh.clinica.controller;
 
-import com.dh.clinica.model.Paciente;
-import com.dh.clinica.service.PacienteService;
+import com.dh.clinica.entity.Paciente;
+import com.dh.clinica.service.impl.PacienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -18,7 +17,7 @@ public class VistaController {
 
     @GetMapping("/index/{id}")
     public String mostrarPacientePorId(Model model, @PathVariable Integer id){
-        Paciente paciente = pacienteService.buscarPorId(id);
+        Paciente paciente = pacienteService.buscarPorId(id).get();
         model.addAttribute("nombre", paciente.getNombre());
         model.addAttribute("apellido", paciente.getApellido());
         return "paciente";
