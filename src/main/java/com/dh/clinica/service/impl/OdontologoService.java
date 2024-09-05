@@ -1,5 +1,6 @@
 package com.dh.clinica.service.impl;
 
+import com.dh.clinica.dto.response.OdontologoResponseDto;
 import com.dh.clinica.entity.Odontologo;
 import com.dh.clinica.repository.IOdontologoRepository;
 import com.dh.clinica.service.IOdontologoService;
@@ -17,7 +18,7 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public Odontologo guardarOdontologo(Odontologo odontologo) {
+    public Odontologo guardarOdontologo(Odontologo odontologo){
         return odontologoRepository.save(odontologo);
     }
 
@@ -27,7 +28,7 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public List<Odontologo> busarTodos() {
+    public List<Odontologo> buscarTodos() {
         return odontologoRepository.findAll();
     }
 
@@ -39,5 +40,14 @@ public class OdontologoService implements IOdontologoService {
     @Override
     public void eliminarOdontologo(Integer id) {
         odontologoRepository.deleteById(id);
+    }
+
+    private OdontologoResponseDto convertirOdontologoAResponse(Odontologo odontologoDesdeDB){
+        OdontologoResponseDto odontologoARetornar = new OdontologoResponseDto(
+                odontologoDesdeDB.getId(), odontologoDesdeDB.getNroMatricula(),
+                odontologoDesdeDB.getNombre(), odontologoDesdeDB.getApellido()
+        );
+
+        return odontologoARetornar;
     }
 }

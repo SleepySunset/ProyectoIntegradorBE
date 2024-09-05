@@ -36,7 +36,7 @@ public class OdontologoController {
 
     @GetMapping("/buscartodos")
     public ResponseEntity<List<Odontologo>> buscarTodos(){
-        return ResponseEntity.ok(odontologoService.busarTodos());
+        return ResponseEntity.ok(odontologoService.buscarTodos());
     }
 
     @PutMapping("/modificar")
