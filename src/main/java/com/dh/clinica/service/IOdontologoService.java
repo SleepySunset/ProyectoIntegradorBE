@@ -11,4 +11,5 @@ public interface IOdontologoService {
     public List<Odontologo> buscarTodos();
     public void modificarOdontologo(Odontologo odontologo);
     public void eliminarOdontologo(Integer id);
+    List<Odontologo> buscarLikeMatricula(String nroMatricula);
 }

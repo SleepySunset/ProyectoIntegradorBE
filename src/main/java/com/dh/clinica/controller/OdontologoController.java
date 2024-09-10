@@ -60,5 +60,13 @@ public class OdontologoController {
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El odontologo no fue encontrado y no se elimino");
             }
-        }
+    }
+
+
+    @GetMapping("/buscarOdontologoPorMatricula/{nroMatricula}")
+    public ResponseEntity<List<Odontologo>> buscarMatriculaLike(@PathVariable String nroMatricula){
+        return ResponseEntity.ok(odontologoService.buscarLikeMatricula(nroMatricula));
+    }
+
+
 }

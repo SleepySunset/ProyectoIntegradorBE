@@ -132,4 +132,8 @@ public class TurnoService implements ITurnoService {
         turnoResponseDto.setPacienteResponseDto(modelMapper.map(turno.getPaciente(), PacienteResponseDto.class));
         return turnoResponseDto;
     }
+
+    public List<Turno> buscarTurnoPaciente(String apellidoPaciente){
+        return turnoRepository.buscarTurnoPorApellidoPaciente(apellidoPaciente);
+    }
 }

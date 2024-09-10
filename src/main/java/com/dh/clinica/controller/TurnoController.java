@@ -57,4 +57,10 @@ public class TurnoController {
         turnoService.eliminarTurno(id);
         return ResponseEntity.ok("{\"mensaje\": \"El turno fue eliminado\"}");
     }
+
+    @GetMapping("/buscarTurnoPorApellido/{apellido}")
+    public ResponseEntity<List<Turno>> buscarTurnoApellidoPorPaciente(@PathVariable String apellido){
+        return ResponseEntity.ok(turnoService.buscarTurnoPaciente(apellido));
+    }
+
 }

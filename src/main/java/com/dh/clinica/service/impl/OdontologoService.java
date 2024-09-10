@@ -42,6 +42,11 @@ public class OdontologoService implements IOdontologoService {
         odontologoRepository.deleteById(id);
     }
 
+    @Override
+    public List<Odontologo> buscarLikeMatricula(String nroMatricula) {
+        return odontologoRepository.findByNroMatriculaLike(nroMatricula);
+    }
+
     private OdontologoResponseDto convertirOdontologoAResponse(Odontologo odontologoDesdeDB){
         OdontologoResponseDto odontologoARetornar = new OdontologoResponseDto(
                 odontologoDesdeDB.getId(), odontologoDesdeDB.getNroMatricula(),
