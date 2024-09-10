@@ -20,7 +20,7 @@ public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer nroMatricula;
+    private String nroMatricula;
     private String nombre;
     private String apellido;
     @OneToMany(mappedBy = "odontologo", cascade = CascadeType.REMOVE)

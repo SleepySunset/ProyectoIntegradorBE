@@ -1,5 +1,6 @@
 package com.dh.clinica.service.impl;
 
+import com.dh.clinica.entity.Odontologo;
 import com.dh.clinica.entity.Paciente;
 import com.dh.clinica.repository.IPacienteRepository;
 import com.dh.clinica.service.IPacienteService;
@@ -39,5 +40,19 @@ public class PacienteService implements IPacienteService {
     @Override
     public void eliminarPaciente(Integer id) {
         pacienteRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Paciente> buscarPorApellidoyNombre(String apellido, String nombre) {
+        return pacienteRepository.findByApellidoAndNombre(apellido, nombre);
+    }
+
+    @Override
+    public List<Paciente> buscarLikeNombre(String nombre) {
+        return pacienteRepository.findByNombreLike(nombre);
+    }
+
+    public List<Paciente> buscarLikeDni(String dni){
+        return pacienteRepository.findByDniLike(dni);
     }
 }

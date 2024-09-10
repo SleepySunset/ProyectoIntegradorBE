@@ -59,4 +59,20 @@ public class PacienteController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/buscarApellidoNombre")
+    public ResponseEntity<List<Paciente>> bucarApellidoYNombre(@RequestParam String apellido,
+                                                               @RequestParam String nombre){
+        return ResponseEntity.ok(pacienteService.buscarPorApellidoyNombre(apellido, nombre));
+    }
+
+    @GetMapping("/buscarNombre/{nombre}")
+    public ResponseEntity<List<Paciente>> buscarNombreLike(@PathVariable String nombre){
+        return ResponseEntity.ok(pacienteService.buscarLikeNombre(nombre));
+    }
+
+    @GetMapping("/buscarPorDni/{dni}")
+    public ResponseEntity<List<Paciente>> buscarDniLike(@PathVariable String dni){
+        return ResponseEntity.ok(pacienteService.buscarLikeDni(dni));
+    }
 }

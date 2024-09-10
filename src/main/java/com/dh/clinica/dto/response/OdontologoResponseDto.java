@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OdontologoResponseDto {
     private Integer id;
-    private Integer matricula;
+    private String matricula;
     private String nombre;
     private String apellido;
 }
