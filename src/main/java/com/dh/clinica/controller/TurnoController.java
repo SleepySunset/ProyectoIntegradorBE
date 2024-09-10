@@ -49,17 +49,12 @@ public class TurnoController {
     @PutMapping("/modificar")
     public ResponseEntity<?> modificarTurno(@RequestBody TurnoModificarDto turnoModificarDto){
        turnoService.modificarTurno(turnoModificarDto);
-       return ResponseEntity.ok("{\"mensaje\": \"El paciente fue modificado\"}");
+       return ResponseEntity.ok("{\"mensaje\": \"El turno fue modificado\"}");
     }
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarTurno(@PathVariable Integer id){
-        Optional<TurnoResponseDto> turno = turnoService.buscarPorId(id);
-        if(turno.isPresent()){
-            turnoService.eliminarTurno(id);
-            return ResponseEntity.ok("El paciente fue eliminado");
-        }else{
-            return ResponseEntity.notFound().build();
-        }
+        turnoService.eliminarTurno(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El turno fue eliminado\"}");
     }
 }

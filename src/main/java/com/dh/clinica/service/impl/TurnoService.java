@@ -8,6 +8,7 @@ import com.dh.clinica.dto.response.TurnoResponseDto;
 import com.dh.clinica.entity.Odontologo;
 import com.dh.clinica.entity.Paciente;
 import com.dh.clinica.entity.Turno;
+import com.dh.clinica.exception.ResourceNotFoundException;
 import com.dh.clinica.repository.ITurnoRepository;
 import com.dh.clinica.service.ITurnoService;
 import org.modelmapper.ModelMapper;
@@ -95,7 +96,13 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public void eliminarTurno(Integer id) {
-        turnoRepository.deleteById(id);
+        Optional<Turno> turno = turnoRepository.findById(id);
+        if(turno.isPresent()){
+            turnoRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("El turno " +id+ " no fue encontrado");
+        }
+
     }
 
     /*
