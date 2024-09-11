@@ -56,6 +56,8 @@ public class TurnoService implements ITurnoService {
             // turnoARetornar = convertirTurnoAResponse(turnoDesdeDB);
             // turno mapeado con modelMapper
             turnoARetornar = mappearATurnoResponse(turnoDesdeDB);
+        } else {
+            throw new ResourceNotFoundException("El odontólogo o el paciente no existen");
         }
         return turnoARetornar;
     }

@@ -47,19 +47,15 @@ public class OdontologoController {
             String jsonResponse = "{\"mensaje\": \"El odontologo fue modificado\"}";
             return ResponseEntity.ok(jsonResponse);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El odontologo no fue encontrado y no se modificó");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El odontólogo no fue encontrado y no se modificó");
         }
     }
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarOdontologo(@PathVariable Integer id){
-            Optional<Odontologo> odontologo = odontologoService.buscarPorId(id);
-            if (odontologo.isPresent()) {
-                odontologoService.eliminarOdontologo(id);
-                return ResponseEntity.ok("El odontologo fue eliminado");
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El odontologo no fue encontrado y no se elimino");
-            }
+        odontologoService.eliminarOdontologo(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El odontólogo fue eliminado\"}");
+
     }
 
 

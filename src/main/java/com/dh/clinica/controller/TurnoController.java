@@ -24,11 +24,7 @@ public class TurnoController {
     @PostMapping("/guardar")
     public ResponseEntity<?> guardarTurno(@RequestBody TurnoRequestDto turnoRequestDto){
         TurnoResponseDto turnoAGuardar = turnoService.guardarTurno(turnoRequestDto);
-        if (turnoAGuardar != null){
-            return ResponseEntity.ok(turnoAGuardar);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El paciente o el odontologo no fueron encontrados");
-        }
+        return ResponseEntity.ok(turnoAGuardar);
     }
 
     @GetMapping("/buscar/{id}")
