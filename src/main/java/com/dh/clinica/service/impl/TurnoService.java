@@ -105,28 +105,7 @@ public class TurnoService implements ITurnoService {
 
     }
 
-    /*
-    private TurnoResponseDto convertirTurnoAResponse(Turno turnoDesdeDB){
-        OdontologoResponseDto odontologoResponseDto = new OdontologoResponseDto(
-                turnoDesdeDB.getOdontologo().getId(), turnoDesdeDB.getOdontologo().getNroMatricula(),
-                turnoDesdeDB.getOdontologo().getNombre(), turnoDesdeDB.getOdontologo().getApellido()
-        );
-
-        PacienteResponseDto pacienteResponseDto = new PacienteResponseDto(
-                turnoDesdeDB.getPaciente().getId(), turnoDesdeDB.getPaciente().getNombre(),
-                turnoDesdeDB.getPaciente().getApellido(), turnoDesdeDB.getPaciente().getDni()
-        );
-
-        TurnoResponseDto turnoARetornar = new TurnoResponseDto(
-                turnoDesdeDB.getId(), odontologoResponseDto, pacienteResponseDto,
-                turnoDesdeDB.getFecha().toString()
-        );
-
-        return turnoARetornar;
-    }
-    */
-
-    private TurnoResponseDto mappearATurnoResponse(Turno turno){
+    public TurnoResponseDto mappearATurnoResponse(Turno turno){
         TurnoResponseDto turnoResponseDto = modelMapper.map(turno, TurnoResponseDto.class);
         turnoResponseDto.setOdontologoResponseDto(modelMapper.map(turno.getOdontologo(), OdontologoResponseDto.class));
         turnoResponseDto.setPacienteResponseDto(modelMapper.map(turno.getPaciente(), PacienteResponseDto.class));
