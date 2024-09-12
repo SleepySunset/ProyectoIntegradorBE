@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TurnoRequestDto {
-    private Integer paciente_id;
-    private Integer odontologo_id;
+    private Integer pacienteId;
+    private Integer odontologoId;
     private String fecha;
 }
 

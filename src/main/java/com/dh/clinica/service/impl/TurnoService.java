@@ -38,8 +38,8 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public TurnoResponseDto guardarTurno(TurnoRequestDto turnoRequestDto) {
-        Optional<Paciente> paciente = pacienteService.buscarPorId(turnoRequestDto.getPaciente_id());
-        Optional<Odontologo> odontologo = odontologoService.buscarPorId(turnoRequestDto.getOdontologo_id());
+        Optional<Paciente> paciente = pacienteService.buscarPorId(turnoRequestDto.getPacienteId());
+        Optional<Odontologo> odontologo = odontologoService.buscarPorId(turnoRequestDto.getOdontologoId());
         Turno turno = new Turno();
         Turno turnoDesdeDB = null;
         TurnoResponseDto turnoARetornar = null;
@@ -55,7 +55,7 @@ public class TurnoService implements ITurnoService {
             // turno mapeado a mano
             // turnoARetornar = convertirTurnoAResponse(turnoDesdeDB);
             // turno mapeado con modelMapper
-            turnoARetornar = mappearATurnoResponse(turnoDesdeDB);
+            turnoARetornar = mapearATurnoResponse(turnoDesdeDB);
         } else {
             throw new ResourceNotFoundException("El odontólogo o el paciente no existen");
         }
@@ -67,7 +67,7 @@ public class TurnoService implements ITurnoService {
         Optional<Turno> turnoDesdeLaDB = turnoRepository.findById(id);
         TurnoResponseDto turnoResponseDto = null;
         if(turnoDesdeLaDB.isPresent()){
-            turnoResponseDto = mappearATurnoResponse(turnoDesdeLaDB.get());
+            turnoResponseDto = mapearATurnoResponse(turnoDesdeLaDB.get());
         }
         return Optional.ofNullable(turnoResponseDto);
     }
@@ -77,7 +77,7 @@ public class TurnoService implements ITurnoService {
         List<Turno> turnos = turnoRepository.findAll();
         List<TurnoResponseDto> turnoRespuesta = new ArrayList<>();
         for (Turno t: turnos){
-            TurnoResponseDto turnoAuxiliar = mappearATurnoResponse(t);
+            TurnoResponseDto turnoAuxiliar = mapearATurnoResponse(t);
             turnoRespuesta.add(turnoAuxiliar);
         }
         return turnoRespuesta;
@@ -107,7 +107,7 @@ public class TurnoService implements ITurnoService {
 
     }
 
-    public TurnoResponseDto mappearATurnoResponse(Turno turno){
+    public TurnoResponseDto mapearATurnoResponse(Turno turno){
         TurnoResponseDto turnoResponseDto = modelMapper.map(turno, TurnoResponseDto.class);
         turnoResponseDto.setOdontologoResponseDto(modelMapper.map(turno.getOdontologo(), OdontologoResponseDto.class));
         turnoResponseDto.setPacienteResponseDto(modelMapper.map(turno.getPaciente(), PacienteResponseDto.class));
