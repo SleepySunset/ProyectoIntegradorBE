@@ -12,6 +12,8 @@ import com.dh.clinica.exception.ResourceNotFoundException;
 import com.dh.clinica.repository.ITurnoRepository;
 import com.dh.clinica.service.ITurnoService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import java.util.Optional;
 
 @Service
 public class TurnoService implements ITurnoService {
+    private final Logger logger = LoggerFactory.getLogger(TurnoService.class);
     private ITurnoRepository turnoRepository;
     private PacienteService pacienteService;
     private OdontologoService odontologoService;
@@ -44,18 +47,24 @@ public class TurnoService implements ITurnoService {
         Turno turnoDesdeDB = null;
         TurnoResponseDto turnoARetornar = null;
         if(paciente.isPresent() && odontologo.isPresent()){
+
             // mapear el turnoRequestDto aa turno
             turno.setPaciente(paciente.get());
             turno.setOdontologo(odontologo.get());
             turno.setFecha(LocalDate.parse(turnoRequestDto.getFecha()));
+
             // persistimos el turno
             turnoDesdeDB = turnoRepository.save(turno);
+            logger.info("turno guardado "+ turnoDesdeDB);
 
             // mapear el turnoDesdeDB a turnoResponseDto
             // turno mapeado a mano
             // turnoARetornar = convertirTurnoAResponse(turnoDesdeDB);
             // turno mapeado con modelMapper
+
             turnoARetornar = mapearATurnoResponse(turnoDesdeDB);
+
+
         } else {
             throw new ResourceNotFoundException("El odontólogo o el paciente no existen");
         }
@@ -77,7 +86,11 @@ public class TurnoService implements ITurnoService {
         List<Turno> turnos = turnoRepository.findAll();
         List<TurnoResponseDto> turnoRespuesta = new ArrayList<>();
         for (Turno t: turnos){
+
             TurnoResponseDto turnoAuxiliar = mapearATurnoResponse(t);
+
+            logger.info("turnos "+ t);
+
             turnoRespuesta.add(turnoAuxiliar);
         }
         return turnoRespuesta;
