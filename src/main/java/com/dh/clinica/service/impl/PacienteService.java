@@ -22,8 +22,10 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente guardarPaciente(Paciente paciente) {
-        logger.info("El paciente se guardo");
-        return pacienteRepository.save(paciente);
+        Paciente pacienteARetornar = pacienteRepository.save(paciente);
+        logger.info("Paciente guardado: " + pacienteARetornar);
+        return pacienteARetornar;
+
     }
 
     @Override
@@ -38,18 +40,18 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public void modificarPaciente(Paciente paciente) {
-        logger.info("El paciente se modifico");
         pacienteRepository.save(paciente);
+        logger.info("Paciente modificado con éxito");
     }
 
     @Override
     public void eliminarPaciente(Integer id) {
         Optional<Paciente> pacienteEncontrado = pacienteRepository.findById(id);
         if(pacienteEncontrado.isPresent()){
-            logger.info("El paciente se elimino");
             pacienteRepository.deleteById(id);
+            logger.info("Paciente con id " +id + " eliminado");
         } else {
-            logger.info("El paciente no fue encontrado");
+            logger.info("Paciente no encontrado");
             throw new ResourceNotFoundException("El paciente " +id+ " no fue encontrado");
         }
 

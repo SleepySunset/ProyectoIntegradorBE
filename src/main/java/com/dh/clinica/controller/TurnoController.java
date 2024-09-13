@@ -33,7 +33,7 @@ public class TurnoController {
         if(turno.isPresent()){
             return ResponseEntity.ok(turno.get());
         }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el turno buscado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Turno no encontrado");
         }
     }
 

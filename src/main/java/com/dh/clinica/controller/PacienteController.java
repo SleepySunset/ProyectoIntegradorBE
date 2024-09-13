@@ -28,7 +28,7 @@ public class PacienteController {
         if(paciente.isPresent()){
             return ResponseEntity.ok(paciente.get());
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("paciente no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado");
         }
     }
 

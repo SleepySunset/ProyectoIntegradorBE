@@ -23,8 +23,9 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public Odontologo guardarOdontologo(Odontologo odontologo){
-        logger.info("El odontologo se guardo");
-        return odontologoRepository.save(odontologo);
+        Odontologo odontologoARetornar = odontologoRepository.save(odontologo);
+        logger.info("Odontólogo guardado: " + odontologoARetornar);
+        return odontologoARetornar;
     }
 
     @Override
@@ -39,18 +40,18 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public void modificarOdontologo(Odontologo odontologo) {
-        logger.info("El odontologo se modifico");
         odontologoRepository.save(odontologo);
+        logger.info("Odontólogo modificado con éxito");
     }
 
     @Override
     public void eliminarOdontologo(Integer id) {
         Optional<Odontologo> odontologo = odontologoRepository.findById(id);
         if(odontologo.isPresent()){
-            logger.info("El odontologo se elimino");
             odontologoRepository.deleteById(id);
+            logger.info("Odontólogo con id " +id+ " eliminado con éxito");
         } else {
-            logger.info("El odontologo no fue encontrado");
+            logger.info("Odontólogo no encontrado");
             throw new ResourceNotFoundException("El odontólogo " +id+ " no fue encontrado");
         }
     }

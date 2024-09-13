@@ -30,7 +30,7 @@ public class OdontologoController {
         if(odontologo.isPresent()){
             return ResponseEntity.ok(odontologo.get());
         } else {
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el odontologo buscado");
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Odontólogo no encontrado");
         }
     }
 
@@ -44,10 +44,10 @@ public class OdontologoController {
         Optional<Odontologo> odontologoEncontrado = odontologoService.buscarPorId(odontologo.getId());
         if (odontologoEncontrado.isPresent()) {
             odontologoService.modificarOdontologo(odontologo);
-            String jsonResponse = "{\"mensaje\": \"El odontologo fue modificado\"}";
+            String jsonResponse = "{\"mensaje\": \"El odontólogo fue modificado\"}";
             return ResponseEntity.ok(jsonResponse);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El odontólogo no fue encontrado y no se modificó");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Odontólogo no encontrado");
         }
     }
 
